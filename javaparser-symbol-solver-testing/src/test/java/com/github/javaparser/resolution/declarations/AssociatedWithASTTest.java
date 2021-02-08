@@ -56,11 +56,11 @@ public interface AssociatedWithASTTest {
     /**
      * Get the node that can be associated with an AST.
      *
-     * @param AssociatedWithAST The node that can be associated with an AST.
+     * @param associatedWithAST The node that can be associated with an AST.
      *
      * @return The node being wrapped.
      */
-    Optional<Node> getWrappedDeclaration(AssociatedWithAST AssociatedWithAST);
+    Optional<Node> getWrappedDeclaration(AssociatedWithAST associatedWithAST);
 
     @Test
     default void checkThatToNodeMatchesTheCorrectWrappedNode() {

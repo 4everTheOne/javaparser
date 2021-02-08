@@ -923,9 +923,16 @@ class JavaParserEnumDeclarationTest extends AbstractTypeDeclarationTest implemen
     }
 
     @Override
-    public Optional<Node> getWrappedDeclaration(AssociableToAST associableToAST) {
+    public Optional<EnumDeclaration> getWrappedDeclaration(AssociableToAST<EnumDeclaration> associableToAST) {
         return Optional.of(
                 safeCast(associableToAST, JavaParserEnumDeclaration.class).getWrappedNode()
+        );
+    }
+
+    @Override
+    public Optional<Node> getWrappedDeclaration(AssociatedWithAST associatedWithAST) {
+        return Optional.of(
+                safeCast(associatedWithAST, JavaParserEnumDeclaration.class).getWrappedNode()
         );
     }
 

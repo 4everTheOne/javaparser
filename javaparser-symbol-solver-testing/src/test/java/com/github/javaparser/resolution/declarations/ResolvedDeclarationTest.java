@@ -21,11 +21,12 @@
 
 package com.github.javaparser.resolution.declarations;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public interface ResolvedDeclarationTest {
+public interface ResolvedDeclarationTest extends AssociatedWithASTTest {
 
     ResolvedDeclaration createValue();
 
@@ -98,6 +99,7 @@ public interface ResolvedDeclarationTest {
      *
      * @see AssociableToAST#toAst()
      */
+    @Disabled("This test has been disabled because AssociableToAST was deprecated.")
     @Test
     default void declarationMostBeAssociableToAST() {
         ResolvedDeclaration resolvedDeclaration = createValue();

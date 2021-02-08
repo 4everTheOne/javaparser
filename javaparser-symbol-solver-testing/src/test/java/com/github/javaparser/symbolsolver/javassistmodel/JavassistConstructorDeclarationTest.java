@@ -23,6 +23,7 @@ package com.github.javaparser.symbolsolver.javassistmodel;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.resolution.declarations.AssociableToAST;
+import com.github.javaparser.resolution.declarations.AssociatedWithAST;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclarationTest;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
@@ -38,6 +39,11 @@ class JavassistConstructorDeclarationTest implements ResolvedConstructorDeclarat
 
     @Override
     public Optional<Node> getWrappedDeclaration(AssociableToAST associableToAST) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Node> getWrappedDeclaration(AssociatedWithAST associatedWithAST) {
         return Optional.empty();
     }
 

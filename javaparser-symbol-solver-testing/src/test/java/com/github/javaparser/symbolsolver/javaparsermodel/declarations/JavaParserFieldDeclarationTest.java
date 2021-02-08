@@ -23,12 +23,10 @@ package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
-import com.github.javaparser.resolution.declarations.AssociableToAST;
-import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
-import com.github.javaparser.resolution.declarations.ResolvedFieldDeclarationTest;
-import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
+import com.github.javaparser.resolution.declarations.*;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import org.junit.jupiter.api.Test;
 
@@ -73,6 +71,13 @@ class JavaParserFieldDeclarationTest implements ResolvedFieldDeclarationTest {
     public Optional<FieldDeclaration> getWrappedDeclaration(AssociableToAST<FieldDeclaration> associableToAST) {
         return Optional.of(
                 safeCast(associableToAST, JavaParserFieldDeclaration.class).getWrappedNode()
+        );
+    }
+
+    @Override
+    public Optional<Node> getWrappedDeclaration(AssociatedWithAST associatedWithAST) {
+        return Optional.of(
+                safeCast(associatedWithAST, JavaParserFieldDeclaration.class).getWrappedNode()
         );
     }
 

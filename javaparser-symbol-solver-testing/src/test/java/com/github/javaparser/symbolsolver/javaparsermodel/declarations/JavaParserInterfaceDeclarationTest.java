@@ -25,6 +25,7 @@ import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.AccessSpecifier;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
@@ -908,6 +909,13 @@ class JavaParserInterfaceDeclarationTest extends AbstractTypeDeclarationTest imp
     public Optional<ClassOrInterfaceDeclaration> getWrappedDeclaration(AssociableToAST<ClassOrInterfaceDeclaration> associableToAST) {
         return Optional.of(
                 safeCast(associableToAST, JavaParserInterfaceDeclaration.class).getWrappedNode()
+        );
+    }
+
+    @Override
+    public Optional<Node> getWrappedDeclaration(AssociatedWithAST associatedWithAST) {
+        return Optional.of(
+                safeCast(associatedWithAST, JavaParserInterfaceDeclaration.class).getWrappedNode()
         );
     }
 
