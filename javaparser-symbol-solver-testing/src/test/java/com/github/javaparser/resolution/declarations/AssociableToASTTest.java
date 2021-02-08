@@ -29,6 +29,12 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+/**
+ *
+ * @param <T>
+ *
+ * @deprecated {@link AssociableToAST} has been deprecated.
+ */
 public interface AssociableToASTTest<T extends Node> {
 
     /**

@@ -28,6 +28,9 @@ import java.util.Optional;
 /**
  * A declaration that can be potentially associated with an AST node.
  * @param <N> type of AST Node that can be associated
+ *
+ * @deprecated {@link AssociableToAST} has been deprecated and a replacementement is avaiable at
+ * {@link AssociatedWithAST}.
  */
 public interface AssociableToAST<N extends Node> {
 

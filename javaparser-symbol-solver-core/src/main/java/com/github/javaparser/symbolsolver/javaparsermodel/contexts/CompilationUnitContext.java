@@ -45,7 +45,6 @@ import com.github.javaparser.symbolsolver.resolution.SymbolSolver;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -343,18 +342,9 @@ public class CompilationUnitContext extends AbstractJavaParserContext<Compilatio
     }
 
     private boolean isAncestorOf(ResolvedTypeDeclaration descendant) {
-        if (descendant instanceof AssociableToAST) {
-            Optional<Node> astOpt = ((AssociableToAST<Node>) descendant).toAst();
-            if (astOpt.isPresent()) {
-                return wrappedNode.isAncestorOf(astOpt.get());
-            } else {
-                return false;
-            }
-        } else if (descendant instanceof JavaParserEnumDeclaration) {
-            return wrappedNode.isAncestorOf(((JavaParserEnumDeclaration) descendant).getWrappedNode());
-        } else {
-            throw new UnsupportedOperationException();
-        }
+        return descendant.toNode()
+                .filter(node -> wrappedNode.isAncestorOf(node))
+                .isPresent();
     }
 
 }
