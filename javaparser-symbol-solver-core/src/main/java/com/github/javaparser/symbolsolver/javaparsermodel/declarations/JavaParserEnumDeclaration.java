@@ -327,11 +327,6 @@ public class JavaParserEnumDeclaration extends AbstractTypeDeclaration
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Optional<Node> toNode() {
-        return Optional.empty();
-    }
-
 
     /**
      * Needed by ContextHelper
@@ -585,6 +580,11 @@ public class JavaParserEnumDeclaration extends AbstractTypeDeclaration
 
     @Override
     public Optional<EnumDeclaration> toAst() {
+        return Optional.of(wrappedNode);
+    }
+
+    @Override
+    public Optional<Node> toNode() {
         return Optional.of(wrappedNode);
     }
 
