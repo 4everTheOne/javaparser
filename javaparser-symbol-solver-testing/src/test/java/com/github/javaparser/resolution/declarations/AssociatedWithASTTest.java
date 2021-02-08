@@ -29,7 +29,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public interface AssociatedWithNodeTest {
+public interface AssociatedWithASTTest {
 
     /**
      * Helper method to cast the instance to the correct {@link Class}.
@@ -40,46 +40,46 @@ public interface AssociatedWithNodeTest {
      *
      * @return The instance casted as the correct type.
      */
-    default <T extends AssociatedWithNode> T safeCast(AssociatedWithNode instance, Class<T> clazz) {
+    default <T extends AssociatedWithAST> T safeCast(AssociatedWithAST instance, Class<T> clazz) {
         if (clazz.isInstance(instance))
             return clazz.cast(instance);
         throw new UnsupportedOperationException(String.format("Unable to cast %s into %s.", instance.getClass().getName(), clazz.getName()));
     }
 
     /**
-     * Create a new instance of {@link AssociatedWithNode} to be used for testing.
+     * Create a new instance of {@link AssociatedWithAST} to be used for testing.
      *
      * @return The created instance.
      */
-    AssociatedWithNode createValue();
+    AssociatedWithAST createValue();
 
     /**
      * Get the node that can be associated with an AST.
      *
-     * @param associatedWithNode The node that can be associated with an AST.
+     * @param AssociatedWithAST The node that can be associated with an AST.
      *
      * @return The node being wrapped.
      */
-    Optional<Node> getWrappedDeclaration(AssociatedWithNode associatedWithNode);
+    Optional<Node> getWrappedDeclaration(AssociatedWithAST AssociatedWithAST);
 
     @Test
     default void checkThatToNodeMatchesTheCorrectWrappedNode() {
-        AssociatedWithNode associatedWithNode = createValue();
-        Optional<Node> wrappedNode = getWrappedDeclaration(associatedWithNode);
+        AssociatedWithAST AssociatedWithAST = createValue();
+        Optional<Node> wrappedNode = getWrappedDeclaration(AssociatedWithAST);
         if (wrappedNode.isPresent())
-            assertEquals(wrappedNode, associatedWithNode.toNode());
+            assertEquals(wrappedNode, AssociatedWithAST.toNode());
         else
-            assertFalse(associatedWithNode.toNode().isPresent());
+            assertFalse(AssociatedWithAST.toNode().isPresent());
     }
 
     @Test
     default void checkThatToNodeWithCorrectTypeMatchesTheCorrectWrappedNode() {
-        AssociatedWithNode associatedWithNode = createValue();
-        Optional<Node> wrappedNode = getWrappedDeclaration(associatedWithNode);
+        AssociatedWithAST AssociatedWithAST = createValue();
+        Optional<Node> wrappedNode = getWrappedDeclaration(AssociatedWithAST);
         if (wrappedNode.isPresent())
-            assertEquals(wrappedNode, associatedWithNode.toNode(wrappedNode.get().getClass()));
+            assertEquals(wrappedNode, AssociatedWithAST.toNode(wrappedNode.get().getClass()));
         else
-            assertFalse(associatedWithNode.toNode().isPresent());
+            assertFalse(AssociatedWithAST.toNode().isPresent());
 
     }
 

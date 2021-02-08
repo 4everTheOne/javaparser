@@ -25,7 +25,7 @@ import com.github.javaparser.ast.Node;
 
 import java.util.Optional;
 
-public interface AssociatedWithNode {
+public interface AssociatedWithAST {
 
 	/**
 	 * If the declaration is associated to an AST node return it, otherwise it return empty.
@@ -59,7 +59,7 @@ public interface AssociatedWithNode {
 	 *
 	 * @return The declaration with the expected {@link Class}.
 	 *
-	 * @see AssociatedWithNode#toNode()
+	 * @see AssociatedWithAST#toNode()
 	 */
 	default <N extends Node> Optional<N> toNode(Class<N> clazz) {
 		return toNode()
