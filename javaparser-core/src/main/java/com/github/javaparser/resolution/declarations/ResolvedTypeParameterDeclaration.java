@@ -22,7 +22,6 @@
 package com.github.javaparser.resolution.declarations;
 
 
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.resolution.types.ResolvedType;
 
 import java.util.List;
@@ -46,7 +45,6 @@ public interface ResolvedTypeParameterDeclaration extends ResolvedTypeDeclaratio
      */
     static ResolvedTypeParameterDeclaration onType(final String name, String classQName, List<Bound> bounds) {
         return new ResolvedTypeParameterDeclaration() {
-
             @Override
             public String getName() {
                 return name;
@@ -95,11 +93,6 @@ public interface ResolvedTypeParameterDeclaration extends ResolvedTypeDeclaratio
             @Override
             public Optional<ResolvedReferenceTypeDeclaration> containerType() {
                 throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Optional<Node> toAst() {
-                return Optional.empty();
             }
         };
     }

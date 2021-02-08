@@ -22,7 +22,6 @@
 package com.github.javaparser.symbolsolver.javassistmodel;
 
 import com.github.javaparser.ast.AccessSpecifier;
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.*;
@@ -308,10 +307,5 @@ public class JavassistEnumDeclaration extends AbstractTypeDeclaration
                 "ctClass=" + ctClass.getName() +
                 ", typeSolver=" + typeSolver +
                 '}';
-    }
-
-    @Override
-    public Optional<Node> toAst() {
-        return Optional.empty();
     }
 }

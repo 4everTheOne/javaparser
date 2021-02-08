@@ -25,6 +25,7 @@ import com.github.javaparser.ast.AccessSpecifier;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
@@ -227,7 +228,7 @@ public class JavaParserInterfaceDeclaration extends AbstractTypeDeclaration
                                 }
                                 
                                 @Override
-                                public Optional<Node> toAst() {
+                                public Optional<FieldDeclaration> toAst() {
                                     return f.toAst();
                                 }
                             });
@@ -364,7 +365,7 @@ public class JavaParserInterfaceDeclaration extends AbstractTypeDeclaration
     }
 
     @Override
-    public Optional<Node> toAst() {
+    public Optional<ClassOrInterfaceDeclaration> toAst() {
         return Optional.of(wrappedNode);
     }
 

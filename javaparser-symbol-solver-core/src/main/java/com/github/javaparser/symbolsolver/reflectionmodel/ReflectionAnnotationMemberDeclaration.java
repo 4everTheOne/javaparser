@@ -21,7 +21,6 @@
 
 package com.github.javaparser.symbolsolver.reflectionmodel;
 
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.resolution.declarations.ResolvedAnnotationMemberDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedReferenceTypeDeclaration;
@@ -34,7 +33,6 @@ import com.github.javaparser.symbolsolver.model.typesystem.ReferenceTypeImpl;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -85,10 +83,4 @@ public class ReflectionAnnotationMemberDeclaration implements ResolvedAnnotation
     public String getName() {
         return annotationMember.getName();
     }
-
-    @Override
-    public Optional<Node> toAst() {
-        return Optional.empty();
-    }
-
 }

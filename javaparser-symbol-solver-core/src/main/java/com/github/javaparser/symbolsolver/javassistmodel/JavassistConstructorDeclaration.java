@@ -22,7 +22,7 @@
 package com.github.javaparser.symbolsolver.javassistmodel;
 
 import com.github.javaparser.ast.AccessSpecifier;
-import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedClassDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedParameterDeclaration;
@@ -159,7 +159,7 @@ public class JavassistConstructorDeclaration implements ResolvedConstructorDecla
     }
 
     @Override
-    public Optional<Node> toAst() {
+    public Optional<ConstructorDeclaration> toAst() {
         return Optional.empty();
     }
 }

@@ -38,8 +38,6 @@ import com.github.javaparser.symbolsolver.javaparsermodel.declarations.*;
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 
-import java.util.Optional;
-
 /**
  * This implementation of the SymbolResolver wraps the functionality of the library to make them easily usable
  * from JavaParser nodes.
@@ -69,11 +67,6 @@ public class JavaSymbolSolver implements SymbolResolver {
         @Override
         public ResolvedType getType() {
             return ResolvedPrimitiveType.INT;
-        }
-
-        @Override
-        public Optional<Node> toAst() {
-            return Optional.empty();
         }
     }
 
