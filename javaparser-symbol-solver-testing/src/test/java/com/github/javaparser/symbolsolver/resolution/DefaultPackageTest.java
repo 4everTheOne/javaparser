@@ -22,7 +22,6 @@
 package com.github.javaparser.symbolsolver.resolution;
 
 import com.github.javaparser.ast.AccessSpecifier;
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.*;
@@ -146,11 +145,6 @@ class DefaultPackageTest {
         @Override
         public SymbolReference<ResolvedMethodDeclaration> solveMethod(String name, List<ResolvedType> argumentsTypes, boolean staticOnly) {
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Optional<Node> toAst() {
-            return Optional.empty();
         }
     }
 

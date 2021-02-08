@@ -23,9 +23,9 @@ package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.StaticJavaParser;
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.PatternExpr;
 import com.github.javaparser.resolution.declarations.AssociableToAST;
+import com.github.javaparser.resolution.declarations.AssociableToASTTest;
 import com.github.javaparser.resolution.declarations.ResolvedPatternDeclarationTest;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
@@ -33,7 +33,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import java.util.Optional;
 
-class JavaParserPatternDeclarationTest implements ResolvedPatternDeclarationTest {
+class JavaParserPatternDeclarationTest implements ResolvedPatternDeclarationTest, AssociableToASTTest<PatternExpr> {
 
     @BeforeAll
     public static void setup() {
@@ -42,7 +42,7 @@ class JavaParserPatternDeclarationTest implements ResolvedPatternDeclarationTest
     }
 
     @Override
-    public Optional<Node> getWrappedDeclaration(AssociableToAST associableToAST) {
+    public Optional<PatternExpr> getWrappedDeclaration(AssociableToAST<PatternExpr> associableToAST) {
         return Optional.of(
                 safeCast(associableToAST, JavaParserPatternDeclaration.class).getWrappedNode()
         );

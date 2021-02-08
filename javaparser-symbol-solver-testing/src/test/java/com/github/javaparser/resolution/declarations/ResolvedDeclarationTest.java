@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public interface ResolvedDeclarationTest extends AssociableToASTTest {
+public interface ResolvedDeclarationTest {
 
     ResolvedDeclaration createValue();
 

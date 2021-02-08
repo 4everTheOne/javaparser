@@ -21,8 +21,6 @@
 
 package com.github.javaparser.symbolsolver.javassistmodel;
 
-import com.github.javaparser.ast.Node;
-import com.github.javaparser.resolution.declarations.AssociableToAST;
 import com.github.javaparser.resolution.declarations.ResolvedEnumConstantDeclarationTest;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
@@ -31,8 +29,6 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
 import javassist.NotFoundException;
-
-import java.util.Optional;
 
 class JavassistEnumConstantDeclarationTest implements ResolvedEnumConstantDeclarationTest {
 
@@ -46,11 +42,6 @@ class JavassistEnumConstantDeclarationTest implements ResolvedEnumConstantDeclar
         } catch (NotFoundException e) {
             throw new RuntimeException("Unexpected error.", e);
         }
-    }
-
-    @Override
-    public Optional<Node> getWrappedDeclaration(AssociableToAST associableToAST) {
-        return Optional.empty();
     }
 
     @Override

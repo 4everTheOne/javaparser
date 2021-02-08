@@ -59,7 +59,8 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JavaParserEnumDeclarationTest extends AbstractTypeDeclarationTest implements ResolvedEnumDeclarationTest,
-        MethodResolutionCapabilityTest, MethodUsageResolutionCapabilityTest {
+        MethodResolutionCapabilityTest, MethodUsageResolutionCapabilityTest,
+        AssociableToASTTest<EnumDeclaration> {
 
     private TypeSolver typeSolver;
 

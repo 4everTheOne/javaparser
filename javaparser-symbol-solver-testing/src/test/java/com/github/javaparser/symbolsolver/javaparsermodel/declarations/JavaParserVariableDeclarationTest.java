@@ -23,19 +23,21 @@ package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.resolution.declarations.AssociableToAST;
+import com.github.javaparser.resolution.declarations.AssociableToASTTest;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedValueDeclarationTest;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
 import java.util.Optional;
 
-class JavaParserVariableDeclarationTest implements ResolvedValueDeclarationTest {
+class JavaParserVariableDeclarationTest implements ResolvedValueDeclarationTest,
+        AssociableToASTTest<VariableDeclarationExpr> {
 
     @Override
-    public Optional<Node> getWrappedDeclaration(AssociableToAST associableToAST) {
+    public Optional<VariableDeclarationExpr> getWrappedDeclaration(AssociableToAST<VariableDeclarationExpr> associableToAST) {
         return Optional.of(
                 safeCast(associableToAST, JavaParserVariableDeclaration.class).getWrappedNode()
         );

@@ -39,7 +39,7 @@ public class Issue1479Test extends AbstractSymbolResolutionTest {
         assertTrue(fae.calculateResolvedType().describe().equals("java.lang.String"));
         ResolvedFieldDeclaration value = fae.resolve().asField();
         assertTrue(value.getName().equals("AFIELD"));
-        Optional<FieldDeclaration> fd = value.toAst(FieldDeclaration.class);
+        Optional<FieldDeclaration> fd = value.toAst();
         assertEquals("a", fd.get().getVariable(0).getInitializer().get().asStringLiteralExpr().getValue());
     }
     

@@ -21,8 +21,6 @@
 
 package com.github.javaparser.symbolsolver.javassistmodel;
 
-import com.github.javaparser.ast.Node;
-import com.github.javaparser.resolution.declarations.AssociableToAST;
 import com.github.javaparser.resolution.declarations.ResolvedAnnotationDeclarationTest;
 import com.github.javaparser.symbolsolver.logic.AbstractTypeDeclaration;
 import com.github.javaparser.symbolsolver.logic.AbstractTypeDeclarationTest;
@@ -33,8 +31,6 @@ import javassist.CtClass;
 import javassist.NotFoundException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 class JavassistAnnotationDeclarationTest extends AbstractTypeDeclarationTest implements ResolvedAnnotationDeclarationTest {
 
@@ -47,11 +43,6 @@ class JavassistAnnotationDeclarationTest extends AbstractTypeDeclarationTest imp
         } catch (NotFoundException e) {
             throw new RuntimeException("Unexpected error.", e);
         }
-    }
-
-    @Override
-    public Optional<Node> getWrappedDeclaration(AssociableToAST associableToAST) {
-        return Optional.empty();
     }
 
     @Override
