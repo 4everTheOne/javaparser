@@ -64,23 +64,22 @@ public interface AssociatedWithASTTest {
 
     @Test
     default void checkThatToNodeMatchesTheCorrectWrappedNode() {
-        AssociatedWithAST AssociatedWithAST = createValue();
-        Optional<Node> wrappedNode = getWrappedDeclaration(AssociatedWithAST);
+        AssociatedWithAST associatedWithAST = createValue();
+        Optional<Node> wrappedNode = getWrappedDeclaration(associatedWithAST);
         if (wrappedNode.isPresent())
-            assertEquals(wrappedNode, AssociatedWithAST.toNode());
+            assertEquals(wrappedNode, associatedWithAST.toNode());
         else
-            assertFalse(AssociatedWithAST.toNode().isPresent());
+            assertFalse(associatedWithAST.toNode().isPresent());
     }
 
     @Test
     default void checkThatToNodeWithCorrectTypeMatchesTheCorrectWrappedNode() {
-        AssociatedWithAST AssociatedWithAST = createValue();
-        Optional<Node> wrappedNode = getWrappedDeclaration(AssociatedWithAST);
+        AssociatedWithAST associatedWithAST = createValue();
+        Optional<Node> wrappedNode = getWrappedDeclaration(associatedWithAST);
         if (wrappedNode.isPresent())
-            assertEquals(wrappedNode, AssociatedWithAST.toNode(wrappedNode.get().getClass()));
+            assertEquals(wrappedNode, associatedWithAST.toNode(wrappedNode.get().getClass()));
         else
-            assertFalse(AssociatedWithAST.toNode().isPresent());
-
+            assertFalse(associatedWithAST.toNode().isPresent());
     }
 
 }
