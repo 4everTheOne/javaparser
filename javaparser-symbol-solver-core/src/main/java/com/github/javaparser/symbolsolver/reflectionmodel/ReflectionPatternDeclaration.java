@@ -21,9 +21,12 @@
 
 package com.github.javaparser.symbolsolver.reflectionmodel;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.resolution.declarations.ResolvedPatternDeclaration;
 import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
+
+import java.util.Optional;
 
 /**
  * WARNING: Implemented fairly blindly. Unsure if required or even appropriate. Use with extreme caution.
@@ -80,6 +83,11 @@ public class ReflectionPatternDeclaration implements ResolvedPatternDeclaration 
     @Override
     public ResolvedType getType() {
         return ReflectionFactory.typeUsageFor(type, typeSolver);
+    }
+
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.empty();
     }
 
 }

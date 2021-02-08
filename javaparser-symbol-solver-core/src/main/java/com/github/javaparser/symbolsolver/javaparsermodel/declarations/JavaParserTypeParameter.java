@@ -231,4 +231,9 @@ public class JavaParserTypeParameter extends AbstractTypeDeclaration implements 
     public List<ResolvedConstructorDeclaration> getConstructors() {
         return Collections.emptyList();
     }
+
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
 }

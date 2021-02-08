@@ -224,6 +224,11 @@ public class JavassistMethodDeclaration implements ResolvedMethodDeclaration, Ty
         return Optional.empty();
     }
 
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.empty();
+    }
+
     /**
      * copy from javassist.bytecode.Descriptor#toCtClass(javassist.ClassPool, java.lang.String, int,
      * javassist.CtClass[], int)

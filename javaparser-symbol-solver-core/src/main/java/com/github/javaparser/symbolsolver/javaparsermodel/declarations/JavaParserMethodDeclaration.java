@@ -162,4 +162,9 @@ public class JavaParserMethodDeclaration implements ResolvedMethodDeclaration, T
     public Optional<MethodDeclaration> toAst() {
         return Optional.of(wrappedNode);
     }
+
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
 }

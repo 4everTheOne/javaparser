@@ -184,4 +184,9 @@ public class JavaParserTypeVariableDeclaration extends AbstractTypeDeclaration i
         return Optional.of(wrappedNode);
     }
 
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
+
 }

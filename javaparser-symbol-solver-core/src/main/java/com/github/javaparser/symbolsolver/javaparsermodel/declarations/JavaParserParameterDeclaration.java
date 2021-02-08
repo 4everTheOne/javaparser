@@ -21,6 +21,7 @@
 
 package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.type.UnknownType;
 import com.github.javaparser.resolution.declarations.AssociableToAST;
@@ -87,4 +88,8 @@ public class JavaParserParameterDeclaration implements ResolvedParameterDeclarat
         return Optional.of(wrappedNode);
     }
 
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
 }

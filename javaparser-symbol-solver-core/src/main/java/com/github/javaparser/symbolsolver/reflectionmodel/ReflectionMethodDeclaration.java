@@ -22,6 +22,7 @@
 package com.github.javaparser.symbolsolver.reflectionmodel;
 
 import com.github.javaparser.ast.AccessSpecifier;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
@@ -162,4 +163,10 @@ public class ReflectionMethodDeclaration implements ResolvedMethodDeclaration, T
     public Optional<MethodDeclaration> toAst() {
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.empty();
+    }
+
 }

@@ -327,6 +327,11 @@ public class JavaParserEnumDeclaration extends AbstractTypeDeclaration
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.empty();
+    }
+
 
     /**
      * Needed by ContextHelper
@@ -420,6 +425,11 @@ public class JavaParserEnumDeclaration extends AbstractTypeDeclaration
         public Optional<MethodDeclaration> toAst() {
             return Optional.empty();
         }
+
+        @Override
+        public Optional<Node> toNode() {
+            return Optional.empty();
+        }
     }
 
 
@@ -461,6 +471,7 @@ public class JavaParserEnumDeclaration extends AbstractTypeDeclaration
         public ResolvedParameterDeclaration getParam(int i) {
             if (i == 0) {
                 return new ResolvedParameterDeclaration() {
+
                     @Override
                     public String getName() {
                         return "name";
@@ -474,6 +485,11 @@ public class JavaParserEnumDeclaration extends AbstractTypeDeclaration
                     @Override
                     public boolean isVariadic() {
                         return false;
+                    }
+
+                    @Override
+                    public Optional<Node> toNode() {
+                        return Optional.empty();
                     }
                 };
             }
@@ -532,6 +548,11 @@ public class JavaParserEnumDeclaration extends AbstractTypeDeclaration
 
         @Override
         public Optional<MethodDeclaration> toAst() {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<Node> toNode() {
             return Optional.empty();
         }
     }

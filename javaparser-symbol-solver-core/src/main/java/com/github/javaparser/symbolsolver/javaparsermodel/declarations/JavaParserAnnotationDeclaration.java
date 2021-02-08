@@ -21,6 +21,7 @@
 
 package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.ast.body.AnnotationMemberDeclaration;
 import com.github.javaparser.resolution.declarations.*;
@@ -138,6 +139,11 @@ public class JavaParserAnnotationDeclaration extends AbstractTypeDeclaration imp
 
     @Override
     public Optional<AnnotationDeclaration> toAst() {
+        return Optional.of(wrappedNode);
+    }
+
+    @Override
+    public Optional<Node> toNode() {
         return Optional.of(wrappedNode);
     }
 }

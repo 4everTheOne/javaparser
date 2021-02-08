@@ -139,6 +139,12 @@ public class JavaParserClassDeclaration extends AbstractClassDeclaration impleme
                                 public Optional<FieldDeclaration> toAst() {
                                     return f.toAst();
                                 }
+
+                                @Override
+                                public Optional<Node> toNode() {
+                                    return f.toNode();
+                                }
+
                             });
                         }));
 
@@ -401,6 +407,11 @@ public class JavaParserClassDeclaration extends AbstractClassDeclaration impleme
 
     @Override
     public Optional<Node> toAst() {
+        return Optional.of(wrappedNode);
+    }
+
+    @Override
+    public Optional<Node> toNode() {
         return Optional.of(wrappedNode);
     }
 

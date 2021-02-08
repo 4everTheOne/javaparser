@@ -22,6 +22,7 @@
 package com.github.javaparser.symbolsolver.reflectionmodel;
 
 import com.github.javaparser.ast.AccessSpecifier;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedClassDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
@@ -103,6 +104,11 @@ public class ReflectionConstructorDeclaration implements ResolvedConstructorDecl
 
     @Override
     public Optional<ConstructorDeclaration> toAst() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Node> toNode() {
         return Optional.empty();
     }
 }

@@ -21,6 +21,7 @@
 
 package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.resolution.declarations.AssociableToAST;
@@ -89,6 +90,11 @@ public class JavaParserVariableDeclaration implements ResolvedValueDeclaration, 
 
     @Override
     public Optional<VariableDeclarationExpr> toAst() {
+        return Optional.of(wrappedNode);
+    }
+
+    @Override
+    public Optional<Node> toNode() {
         return Optional.of(wrappedNode);
     }
 }

@@ -231,6 +231,12 @@ public class JavaParserInterfaceDeclaration extends AbstractTypeDeclaration
                                 public Optional<FieldDeclaration> toAst() {
                                     return f.toAst();
                                 }
+
+                                @Override
+                                public Optional<Node> toNode() {
+                                    return f.toNode();
+                                }
+
                             });
                         })
                 );
@@ -369,6 +375,11 @@ public class JavaParserInterfaceDeclaration extends AbstractTypeDeclaration
         return Optional.of(wrappedNode);
     }
 
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
+
     ///
     /// Private methods
     ///
@@ -397,4 +408,5 @@ public class JavaParserInterfaceDeclaration extends AbstractTypeDeclaration
                 .collect(Collectors.toList());
         return new ReferenceTypeImpl(ref.getCorrespondingDeclaration().asReferenceType(), superClassTypeParameters, typeSolver);
     }
+
 }

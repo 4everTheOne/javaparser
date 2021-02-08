@@ -21,6 +21,7 @@
 
 package com.github.javaparser.symbolsolver.javassistmodel;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.resolution.declarations.*;
 import com.github.javaparser.resolution.types.ResolvedReferenceType;
@@ -153,4 +154,10 @@ public class JavassistAnnotationDeclaration extends AbstractTypeDeclaration impl
     public Optional<AnnotationDeclaration> toAst() {
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.empty();
+    }
+
 }

@@ -26,7 +26,7 @@ package com.github.javaparser.resolution.declarations;
  *
  * @author Federico Tomassetti
  */
-public interface ResolvedDeclaration {
+public interface ResolvedDeclaration extends AssociatedWithAST {
 
     /**
      * Anonymous classes do not have a name, for example.

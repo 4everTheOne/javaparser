@@ -21,6 +21,7 @@
 
 package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.PatternExpr;
 import com.github.javaparser.resolution.declarations.AssociableToAST;
 import com.github.javaparser.resolution.declarations.ResolvedPatternDeclaration;
@@ -69,4 +70,8 @@ public class JavaParserPatternDeclaration implements ResolvedPatternDeclaration,
         return Optional.of(wrappedNode);
     }
 
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
 }

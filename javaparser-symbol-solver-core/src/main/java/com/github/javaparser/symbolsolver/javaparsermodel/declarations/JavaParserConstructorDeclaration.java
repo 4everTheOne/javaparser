@@ -22,6 +22,7 @@
 package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 
 import com.github.javaparser.ast.AccessSpecifier;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedParameterDeclaration;
@@ -112,4 +113,10 @@ public class JavaParserConstructorDeclaration<N extends ResolvedReferenceTypeDec
     public Optional<ConstructorDeclaration> toAst() {
         return Optional.of(wrappedNode);
     }
+
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
+
 }

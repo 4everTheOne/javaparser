@@ -39,6 +39,8 @@ import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade;
 import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFactory;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 
+import java.util.Optional;
+
 import static com.github.javaparser.symbolsolver.javaparser.Navigator.demandParentNode;
 
 /**
@@ -189,5 +191,9 @@ public class JavaParserSymbolDeclaration implements ResolvedValueDeclaration {
         return wrappedNode;
     }
 
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.of(wrappedNode);
+    }
 
 }

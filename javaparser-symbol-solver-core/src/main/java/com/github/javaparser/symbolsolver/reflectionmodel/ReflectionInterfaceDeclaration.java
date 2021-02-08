@@ -329,4 +329,9 @@ public class ReflectionInterfaceDeclaration extends AbstractTypeDeclaration
     public Optional<ClassOrInterfaceDeclaration> toAst() {
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Node> toNode() {
+        return Optional.empty();
+    }
 }

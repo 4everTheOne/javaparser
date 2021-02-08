@@ -21,6 +21,7 @@
 
 package com.github.javaparser.symbolsolver.reflectionmodel;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.declarations.*;
@@ -195,6 +196,11 @@ public class ReflectionAnnotationDeclaration extends AbstractTypeDeclaration imp
 
     @Override
     public Optional<AnnotationDeclaration> toAst() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Node> toNode() {
         return Optional.empty();
     }
 

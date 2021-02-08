@@ -22,6 +22,7 @@
 package com.github.javaparser.symbolsolver.javassistmodel;
 
 import com.github.javaparser.ast.AccessSpecifier;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
@@ -315,6 +316,11 @@ public class JavassistInterfaceDeclaration extends AbstractTypeDeclaration
 
     @Override
     public Optional<ClassOrInterfaceDeclaration> toAst() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Node> toNode() {
         return Optional.empty();
     }
 }
