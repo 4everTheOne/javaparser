@@ -156,6 +156,7 @@ public class JavaParserTypeSolver implements TypeSolver {
                                 .getResult()
                                 .map(cu -> cu.setStorage(srcFile));
                     }
+
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException("Issue while parsing while type solving: " + srcFile.toAbsolutePath(), e);
                 }
