@@ -29,7 +29,7 @@ abstract class ClassLoaderTypeSolverTest<T extends ClassLoaderTypeSolver> extend
         SymbolReference<ResolvedReferenceTypeDeclaration> solvedType = typeSolver.tryToSolveType(suppliedName);
         assertTrue(solvedType.isSolved());
 
-        ResolvedReferenceTypeDeclaration resolvedDeclaration = solvedType.getCorrespondingDeclaration();
+        ResolvedReferenceTypeDeclaration resolvedDeclaration = solvedType.getCorrespondingDeclaration().get();
         assertEquals(expectedCanonicalName, resolvedDeclaration.getQualifiedName());
     }
 
