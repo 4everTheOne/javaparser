@@ -205,11 +205,10 @@ public class JavaParserTypeSolver implements TypeSolver {
     public SymbolReference<ResolvedReferenceTypeDeclaration> tryToSolveType(String name) {
         try {
             return foundTypes.get(name, () -> {
-                SymbolReference<ResolvedReferenceTypeDeclaration> result = tryToSolveTypeUncached(name);
-                if (result.isSolved()) {
-                    return SymbolReference.solved(result.getCorrespondingDeclaration());
-                }
-                return result;
+                SymbolReference<ResolvedReferenceTypeDeclaration> solvedType = tryToSolveTypeUncached(name);
+                return solvedType.getCorrespondingDeclaration()
+                        .<SymbolReference<ResolvedReferenceTypeDeclaration>>map(SymbolReference::solved)
+                        .orElse(solvedType);
             });
         } catch (ExecutionException e) {
             throw new RuntimeException(e);

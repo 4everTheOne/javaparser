@@ -36,6 +36,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.github.javaparser.Providers.provider;
 import static org.junit.jupiter.api.Assertions.*;
@@ -127,18 +128,18 @@ public class Issue2162Test extends AbstractSymbolResolutionTest {
 //        assertEquals(5, methodCallExprs.size(), "Unexpected number of method calls -- has the test code been updated, without also updating this test case?");
 
         // b1.getView()
-        assertEquals("D", javaParserFacade.solve(methodCallExprs.get(0)).getCorrespondingDeclaration().getReturnType().describe());
+        assertEquals("D", javaParserFacade.solve(methodCallExprs.get(0)).getCorrespondingDeclaration().get().getReturnType().describe());
 
         // b2.getView()
-        assertEquals("D", javaParserFacade.solve(methodCallExprs.get(2)).getCorrespondingDeclaration().getReturnType().describe());
+        assertEquals("D", javaParserFacade.solve(methodCallExprs.get(2)).getCorrespondingDeclaration().get().getReturnType().describe());
         // b2.getView().getTest()
-        assertEquals("void", javaParserFacade.solve(methodCallExprs.get(1)).getCorrespondingDeclaration().getReturnType().describe());
+        assertEquals("void", javaParserFacade.solve(methodCallExprs.get(1)).getCorrespondingDeclaration().get().getReturnType().describe());
 
         // b3.getView()
-        assertEquals("D", javaParserFacade.solve(methodCallExprs.get(4)).getCorrespondingDeclaration().getReturnType().describe());
-        assertThrows(UnsupportedOperationException.class, () -> {
+        assertEquals("D", javaParserFacade.solve(methodCallExprs.get(4)).getCorrespondingDeclaration().get().getReturnType().describe());
+        assertThrows(NoSuchElementException.class, () -> {
             // b3.getView().getView() -- causing error
-            assertEquals("V", javaParserFacade.solve(methodCallExprs.get(3)).getCorrespondingDeclaration().getReturnType().describe());
+            assertEquals("V", javaParserFacade.solve(methodCallExprs.get(3)).getCorrespondingDeclaration().get().getReturnType().describe());
         }, "Exected this resolution to fail due to the chained methods -- `getView()` shouldn't exist on the return value from the first call to `getView()`.");
 
     }

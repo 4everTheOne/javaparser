@@ -47,6 +47,12 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
 
+import java.io.*;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
 /**
  * Will let the symbol solver look inside a jar file while solving types.
  *
@@ -217,9 +223,10 @@ public class JarTypeSolver implements TypeSolver {
 
     @Override
     public ResolvedReferenceTypeDeclaration solveType(String name) throws UnsolvedSymbolException {
-        SymbolReference<ResolvedReferenceTypeDeclaration> ref = tryToSolveType(name);
-        if (ref.isSolved()) {
-            return ref.getCorrespondingDeclaration();
+        Optional<? extends ResolvedReferenceTypeDeclaration> ref = tryToSolveType(name)
+                .getCorrespondingDeclaration();
+        if (ref.isPresent()) {
+            return ref.get();
         } else {
             throw new UnsolvedSymbolException(name);
         }

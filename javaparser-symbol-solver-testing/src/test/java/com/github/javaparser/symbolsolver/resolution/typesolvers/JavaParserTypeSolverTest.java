@@ -61,7 +61,7 @@ class JavaParserTypeSolverTest extends AbstractTypeSolverTest<JavaParserTypeSolv
 
         SymbolReference<ResolvedReferenceTypeDeclaration> x = typeSolver.tryToSolveType("com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver");
 
-        JavaParserClassDeclaration declaration = (JavaParserClassDeclaration) x.getCorrespondingDeclaration();
+        JavaParserClassDeclaration declaration = (JavaParserClassDeclaration) x.getCorrespondingDeclaration().get();
         Node wrappedNode = declaration.getWrappedNode();
         assertEquals("JavaParserTypeSolver.java", wrappedNode.findCompilationUnit().get().getStorage().get().getFileName());
     }
@@ -87,8 +87,8 @@ class JavaParserTypeSolverTest extends AbstractTypeSolverTest<JavaParserTypeSolv
         SymbolReference<ResolvedReferenceTypeDeclaration> x = typeSolver.tryToSolveType("com.github.javaparser.ast.CompilationUnit");
 
         assertTrue(x.isSolved());
-        assertNotNull(x.getCorrespondingDeclaration());
-        assertTrue(x.getCorrespondingDeclaration().isClass());
+        assertNotNull(x.getCorrespondingDeclaration().get());
+        assertTrue(x.getCorrespondingDeclaration().get().isClass());
     }
 
     @Test
@@ -99,8 +99,8 @@ class JavaParserTypeSolverTest extends AbstractTypeSolverTest<JavaParserTypeSolv
         SymbolReference<ResolvedReferenceTypeDeclaration> x = typeSolver.tryToSolveType("com.github.javaparser.ParseResult");
 
         assertTrue(x.isSolved());
-        assertNotNull(x.getCorrespondingDeclaration());
-        assertTrue(x.getCorrespondingDeclaration().isClass());
+        assertNotNull(x.getCorrespondingDeclaration().get());
+        assertTrue(x.getCorrespondingDeclaration().get().isClass());
     }
 
     @Test
@@ -111,8 +111,8 @@ class JavaParserTypeSolverTest extends AbstractTypeSolverTest<JavaParserTypeSolv
         SymbolReference<ResolvedReferenceTypeDeclaration> x = typeSolver.tryToSolveType("com.github.javaparser.ast.Modifier");
 
         assertTrue(x.isSolved());
-        assertNotNull(x.getCorrespondingDeclaration());
-        assertTrue(x.getCorrespondingDeclaration().isEnum());
+        assertNotNull(x.getCorrespondingDeclaration().get());
+        assertTrue(x.getCorrespondingDeclaration().get().isEnum());
     }
 
     @Test
@@ -123,8 +123,8 @@ class JavaParserTypeSolverTest extends AbstractTypeSolverTest<JavaParserTypeSolv
         SymbolReference<ResolvedReferenceTypeDeclaration> x = typeSolver.tryToSolveType("com.github.javaparser.ast.nodeTypes.NodeWithDeclaration");
 
         assertTrue(x.isSolved());
-        assertNotNull(x.getCorrespondingDeclaration());
-        assertTrue(x.getCorrespondingDeclaration().isInterface());
+        assertNotNull(x.getCorrespondingDeclaration().get());
+        assertTrue(x.getCorrespondingDeclaration().get().isInterface());
     }
 
     @Test
@@ -135,8 +135,8 @@ class JavaParserTypeSolverTest extends AbstractTypeSolverTest<JavaParserTypeSolv
         SymbolReference<ResolvedReferenceTypeDeclaration> x = typeSolver.tryToSolveType("com.github.javaparser.ast.nodeTypes.NodeWithName");
 
         assertTrue(x.isSolved());
-        assertNotNull(x.getCorrespondingDeclaration());
-        assertTrue(x.getCorrespondingDeclaration().isInterface());
+        assertNotNull(x.getCorrespondingDeclaration().get());
+        assertTrue(x.getCorrespondingDeclaration().get().isInterface());
     }
     
     @Test
