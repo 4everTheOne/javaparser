@@ -21,18 +21,7 @@
 
 package com.github.javaparser.symbolsolver.reflectionmodel;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-
-import com.github.javaparser.ast.expr.BooleanLiteralExpr;
-import com.github.javaparser.ast.expr.CharLiteralExpr;
-import com.github.javaparser.ast.expr.DoubleLiteralExpr;
-import com.github.javaparser.ast.expr.Expression;
-import com.github.javaparser.ast.expr.IntegerLiteralExpr;
-import com.github.javaparser.ast.expr.LongLiteralExpr;
-import com.github.javaparser.ast.expr.StringLiteralExpr;
+import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.resolution.declarations.ResolvedAnnotationMemberDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedReferenceTypeDeclaration;
 import com.github.javaparser.resolution.types.ResolvedPrimitiveType;
@@ -40,6 +29,12 @@ import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.model.typesystem.ReferenceTypeImpl;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * @author Malte Skoruppa
@@ -79,8 +74,9 @@ public class ReflectionAnnotationMemberDeclaration implements ResolvedAnnotation
             return ResolvedPrimitiveType.byName(returnType.getName());
         }
         SymbolReference<ResolvedReferenceTypeDeclaration> rrtd = typeSolver.tryToSolveType(returnType.getName());
-        if (rrtd.isSolved()) {
-            return new ReferenceTypeImpl(rrtd.getCorrespondingDeclaration(), typeSolver);
+        Optional<ResolvedReferenceTypeDeclaration> declaration = rrtd.getCorrespondingDeclaration();
+        if (declaration.isPresent()) {
+            return new ReferenceTypeImpl(declaration.get(), typeSolver);
         }
         throw new UnsupportedOperationException(String.format("Obtaining the type of the annotation member %s is not supported yet.", annotationMember.getName()));
     }
