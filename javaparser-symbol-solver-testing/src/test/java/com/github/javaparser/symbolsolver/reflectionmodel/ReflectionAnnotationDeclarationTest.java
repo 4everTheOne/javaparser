@@ -42,6 +42,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
   String value();
 }
 
+@interface WithField {
+  int FIELD_DECLARATION = 0;
+}
+
 class ReflectionAnnotationDeclarationTest {
   private TypeSolver typeSolver = new ReflectionTypeSolver(false);
 
@@ -78,4 +82,14 @@ class ReflectionAnnotationDeclarationTest {
         annotation.solveMethod("value", Collections.emptyList(), false);
     assertEquals("value", symbolReference.getCorrespondingDeclaration().get().getName());
   }
+
+  @Test
+  void getAllFields_shouldReturnTheCorrectFields() {
+    ReflectionAnnotationDeclaration annotation =
+            (ReflectionAnnotationDeclaration) typeSolver.solveType(
+                    "com.github.javaparser.symbolsolver.reflectionmodel.WithField");
+    assertEquals(Collections.singleton("FIELD_DECLARATION"),
+            annotation.getAllFields().stream().map(ResolvedDeclaration::getName).collect(Collectors.toSet()));
+  }
+
 }
