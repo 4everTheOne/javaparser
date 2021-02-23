@@ -52,7 +52,5 @@ public interface AssociableToAST<N extends Node> {
      * In these cases getWrappedNode is particularly nice because it returns the right type of AST node,
      * not just a Node.
      */
-    default Optional<N> toAst() {
-        throw new UnsupportedOperationException();
-    }
+    Optional<N> toAst();
 }
