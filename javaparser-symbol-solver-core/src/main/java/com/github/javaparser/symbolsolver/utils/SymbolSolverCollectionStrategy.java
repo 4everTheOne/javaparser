@@ -21,17 +21,6 @@
 
 package com.github.javaparser.symbolsolver.utils;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
-import static java.nio.file.FileVisitResult.SKIP_SUBTREE;
-
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.PathMatcher;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
@@ -41,6 +30,18 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeS
 import com.github.javaparser.utils.CollectionStrategy;
 import com.github.javaparser.utils.Log;
 import com.github.javaparser.utils.ProjectRoot;
+import javassist.NotFoundException;
+
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+
+import static java.nio.file.FileVisitResult.CONTINUE;
+import static java.nio.file.FileVisitResult.SKIP_SUBTREE;
 
 /**
  * {@link CollectionStrategy} which collects all SourceRoots and initialises the TypeSolver and
@@ -84,7 +85,22 @@ public class SymbolSolverCollectionStrategy implements CollectionStrategy {
                             current_root = getRoot(file).orElse(null);
                         }
                     } else if (jarMatcher.matches(file)) {
-                        typeSolver.add(new JarTypeSolver(file.toString()));
+                        try {
+                            typeSolver.add(new JarTypeSolver(file.toString()));
+                        } catch (RuntimeException e) {
+                            /*
+                             * We expect the file to exist on disk, but sometimes Java Assist may not be able to load
+                             *  it. A situation when this happens is due to the file being corrupted making
+                             * it to throw a NotFoundException.
+                             */
+                            if (e.getCause() instanceof NotFoundException) {
+                                Log.error(e, "Unable to load %s due to NotFoundException. The file may be corrupted.",
+                                        () -> path);
+                            } else {
+                                // If it's other exception
+                                throw e;
+                            }
+                        }
                     }
                     return CONTINUE;
                 }
@@ -112,4 +128,17 @@ public class SymbolSolverCollectionStrategy implements CollectionStrategy {
         }
         return projectRoot;
     }
+
+    /**
+     * Get the list of {@link com.github.javaparser.symbolsolver.model.resolution.TypeSolver} that have been collected.
+     * <br>
+     * This list is composed of {@link JarTypeSolver} and {@link JavaParserTypeSolver} that were found while visiting
+     * the File tree.
+     *
+     * @return The type solvers.
+     */
+    public CombinedTypeSolver getTypeSolver() {
+        return typeSolver;
+    }
+
 }

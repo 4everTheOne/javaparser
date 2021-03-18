@@ -31,12 +31,17 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.github.javaparser.utils.CodeGenerationUtils.classLoaderRoot;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SymbolSolverCollectionStrategyTest {
+
+    private static final Path RESOURCES_PATH = Paths.get("src", "test", "resources",
+            "com", "github", "javaparser", "symbolsolver", "utils", "SymbolSolverCollectionStrategyTest");
 
     private final Path root = classLoaderRoot(SymbolSolverCollectionStrategyTest.class).resolve("../../../javaparser-core").normalize();
     private final ProjectRoot projectRoot = new SymbolSolverCollectionStrategy().collect(root);
@@ -62,4 +67,11 @@ class SymbolSolverCollectionStrategyTest {
         // not too many MethodDeclarations should be unresolved
         assertTrue(unresolved.get() < 10);
     }
+
+    @Test
+    void testDoesNotThrowWhenJarIsInvalid() {
+        SymbolSolverCollectionStrategy strategy = new SymbolSolverCollectionStrategy();
+        assertDoesNotThrow(() -> strategy.collect(RESOURCES_PATH));
+    }
+
 }
