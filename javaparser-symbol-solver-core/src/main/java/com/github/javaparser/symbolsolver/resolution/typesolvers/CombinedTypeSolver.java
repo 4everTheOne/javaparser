@@ -27,6 +27,7 @@ import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,11 +59,19 @@ public class CombinedTypeSolver implements TypeSolver {
     private Predicate<Exception> exceptionHandler;
 
     public CombinedTypeSolver(TypeSolver... elements) {
+        this(Arrays.asList(elements));
+    }
+
+    public CombinedTypeSolver(Predicate<Exception> exceptionHandler, TypeSolver... elements) {
+        this(exceptionHandler, Arrays.asList(elements));
+    }
+
+    public CombinedTypeSolver(Iterable<TypeSolver> elements) {
         this(ExceptionHandlers.IGNORE_NONE, elements);
     }
 
     /** @see #exceptionHandler */
-    public CombinedTypeSolver(Predicate<Exception> exceptionHandler, TypeSolver... elements) {
+    public CombinedTypeSolver(Predicate<Exception> exceptionHandler, Iterable<TypeSolver> elements) {
         setExceptionHandler(exceptionHandler);
 
         for (TypeSolver el : elements) {

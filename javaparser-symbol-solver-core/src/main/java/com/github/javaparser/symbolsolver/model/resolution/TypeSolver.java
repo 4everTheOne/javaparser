@@ -33,6 +33,8 @@ import java.util.Optional;
  * @author Federico Tomassetti
  */
 public interface TypeSolver {
+    
+    String JAVA_LANG_OBJECT = Object.class.getCanonicalName();
 
     /**
      * Get the root of the hierarchy of type solver.
@@ -77,7 +79,7 @@ public interface TypeSolver {
      * @return A resolved reference to {@code java.lang.Object}
      */
     default ResolvedReferenceTypeDeclaration getSolvedJavaLangObject() throws UnsolvedSymbolException {
-        return solveType(Object.class.getCanonicalName());
+        return solveType(JAVA_LANG_OBJECT);
     }
 
     default boolean hasType(String name) {

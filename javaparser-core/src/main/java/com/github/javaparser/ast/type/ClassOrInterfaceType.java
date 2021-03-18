@@ -20,12 +20,6 @@
  */
 package com.github.javaparser.ast.type;
 
-import static com.github.javaparser.utils.Utils.assertNotNull;
-import static java.util.stream.Collectors.joining;
-
-import java.util.Optional;
-import java.util.function.Consumer;
-
 import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.AllFieldsConstructor;
 import com.github.javaparser.ast.Generated;
@@ -46,6 +40,12 @@ import com.github.javaparser.metamodel.OptionalProperty;
 import com.github.javaparser.resolution.types.ResolvedReferenceType;
 import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.resolution.types.ResolvedTypeVariable;
+
+import java.util.Optional;
+import java.util.function.Consumer;
+
+import static com.github.javaparser.utils.Utils.assertNotNull;
+import static java.util.stream.Collectors.joining;
 
 /**
  * A class or an interface type.
@@ -151,7 +151,7 @@ public class ClassOrInterfaceType extends ReferenceType implements NodeWithSimpl
     public ClassOrInterfaceType setName(final SimpleName name) {
         assertNotNull(name);
         if (name == this.name) {
-            return (ClassOrInterfaceType) this;
+            return this;
         }
         notifyPropertyChange(ObservableProperty.NAME, this.name, name);
         if (this.name != null)
@@ -170,7 +170,7 @@ public class ClassOrInterfaceType extends ReferenceType implements NodeWithSimpl
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public ClassOrInterfaceType setScope(final ClassOrInterfaceType scope) {
         if (scope == this.scope) {
-            return (ClassOrInterfaceType) this;
+            return this;
         }
         notifyPropertyChange(ObservableProperty.SCOPE, this.scope, scope);
         if (this.scope != null)
@@ -194,7 +194,7 @@ public class ClassOrInterfaceType extends ReferenceType implements NodeWithSimpl
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public ClassOrInterfaceType setTypeArguments(final NodeList<Type> typeArguments) {
         if (typeArguments == this.typeArguments) {
-            return (ClassOrInterfaceType) this;
+            return this;
         }
         notifyPropertyChange(ObservableProperty.TYPE_ARGUMENTS, this.typeArguments, typeArguments);
         if (this.typeArguments != null)
@@ -239,7 +239,7 @@ public class ClassOrInterfaceType extends ReferenceType implements NodeWithSimpl
         getTypeArguments().ifPresent(ta -> str.append(ta.stream().map(Type::asString).collect(joining(",", "<", ">"))));
         return str.toString();
     }
-    
+
     /*
      * Note that the internal forms of the binary names of object are used.
      * for example java/lang/Object
@@ -304,6 +304,7 @@ public class ClassOrInterfaceType extends ReferenceType implements NodeWithSimpl
         return this;
     }
 
+    @Override
     @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifClassOrInterfaceType(Consumer<ClassOrInterfaceType> action) {
         action.accept(this);
