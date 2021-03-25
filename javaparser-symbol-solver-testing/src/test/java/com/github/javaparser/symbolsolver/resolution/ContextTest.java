@@ -21,15 +21,45 @@
 
 package com.github.javaparser.symbolsolver.resolution;
 
-import com.github.javaparser.*;
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseResult;
+import com.github.javaparser.ParseStart;
+import com.github.javaparser.ParserConfiguration;
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.StringProvider;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.expr.*;
-import com.github.javaparser.ast.stmt.*;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.Parameter;
+import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.expr.AssignExpr;
+import com.github.javaparser.ast.expr.BinaryExpr;
+import com.github.javaparser.ast.expr.EnclosedExpr;
+import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.InstanceOfExpr;
+import com.github.javaparser.ast.expr.LambdaExpr;
+import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.NameExpr;
+import com.github.javaparser.ast.expr.PatternExpr;
+import com.github.javaparser.ast.expr.UnaryExpr;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.stmt.BlockStmt;
+import com.github.javaparser.ast.stmt.CatchClause;
+import com.github.javaparser.ast.stmt.ExpressionStmt;
+import com.github.javaparser.ast.stmt.ForEachStmt;
+import com.github.javaparser.ast.stmt.ForStmt;
+import com.github.javaparser.ast.stmt.IfStmt;
+import com.github.javaparser.ast.stmt.Statement;
+import com.github.javaparser.ast.stmt.TryStmt;
 import com.github.javaparser.resolution.MethodUsage;
-import com.github.javaparser.resolution.declarations.*;
+import com.github.javaparser.resolution.declarations.ResolvedClassDeclaration;
+import com.github.javaparser.resolution.declarations.ResolvedDeclaration;
+import com.github.javaparser.resolution.declarations.ResolvedReferenceTypeDeclaration;
+import com.github.javaparser.resolution.declarations.ResolvedTypeDeclaration;
+import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
 import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.AbstractSymbolResolutionTest;
 import com.github.javaparser.symbolsolver.core.resolution.Context;
@@ -39,7 +69,11 @@ import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFactory;
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.reflectionmodel.ReflectionClassDeclaration;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.*;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.MemoryTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import com.github.javaparser.symbolsolver.utils.LeanParserConfiguration;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -51,7 +85,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -606,14 +642,45 @@ class ContextTest extends AbstractSymbolResolutionTest {
     @Test
     void localVariableDeclarationInScope() {
         String name = "a";
-        CompilationUnit cu = parse("class A { void foo() {\n" +
-                "SomeClass a; a.aField;" + "\n" +
-                "} }", ParseStart.COMPILATION_UNIT);
+        CompilationUnit cu = parse(
+                "class A {\n" +
+                "  void foo() {\n" +
+                "    SomeClass a;\n" +
+                "    a.aField;\n" +
+                "  }\n" +
+                "}", ParseStart.COMPILATION_UNIT);
 
         // The block statement expose to the 2nd statement the local var
         BlockStmt blockStmt = cu.findAll(BlockStmt.class).get(0);
         Context context1 = JavaParserFactory.getContext(blockStmt, typeSolver);
         assertEquals(1, context1.localVariablesExposedToChild(blockStmt.getStatement(1)).size());
+
+        Node nameNode = cu.findAll(NameExpr.class).get(0);
+        Context context = JavaParserFactory.getContext(nameNode, typeSolver);
+        assertTrue(context.localVariableDeclarationInScope(name).isPresent());
+    }
+
+    @Test
+    void localVariableDeclarationInScopeWithMultipleLocalesVariables() {
+        String name = "a";
+        CompilationUnit cu = parse(
+                "class A {\n" +
+                "  void foo() {\n" +
+                "    SomeClass a;\n" +
+                "    SomeClass b;\n" +
+                "    a.aField;\n" +
+                "    SomeClass c;\n" +
+                "    c.cField;\n" +
+                "  }\n" +
+                "}", ParseStart.COMPILATION_UNIT);
+
+        // The block statement expose to the 2nd statement the local var
+        BlockStmt blockStmt = cu.findAll(BlockStmt.class).get(0);
+        Context context1 = JavaParserFactory.getContext(blockStmt, typeSolver);
+        // verifying the number of variable defined before the statement a.aField
+        assertEquals(2, context1.localVariablesExposedToChild(blockStmt.getStatement(2)).size());
+        // verifying the number of variable defined before the statement c.cField
+        assertEquals(3, context1.localVariablesExposedToChild(blockStmt.getStatement(4)).size());
 
         Node nameNode = cu.findAll(NameExpr.class).get(0);
         Context context = JavaParserFactory.getContext(nameNode, typeSolver);
