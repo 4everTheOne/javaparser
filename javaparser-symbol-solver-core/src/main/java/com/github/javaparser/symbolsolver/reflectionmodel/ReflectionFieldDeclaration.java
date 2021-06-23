@@ -74,6 +74,11 @@ public class ReflectionFieldDeclaration implements ResolvedFieldDeclaration {
     }
 
     @Override
+    public boolean isVolatile() {
+        return Modifier.isVolatile(field.getModifiers());
+    }
+
+    @Override
     public boolean isField() {
         return true;
     }

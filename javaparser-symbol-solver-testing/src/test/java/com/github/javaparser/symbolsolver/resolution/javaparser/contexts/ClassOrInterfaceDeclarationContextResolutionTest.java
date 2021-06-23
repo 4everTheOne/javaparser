@@ -300,7 +300,7 @@ class ClassOrInterfaceDeclarationContextResolutionTest extends AbstractResolutio
         Context context = new ClassOrInterfaceDeclarationContext(classOrInterfaceDeclaration, typeSolver);
 
         SymbolReference<ResolvedTypeDeclaration> ref = context.solveType("C");
-        assertEquals(true, ref.isSolved());
+        assertEquals(false, ref.isSolved());
     }
 
     @Test

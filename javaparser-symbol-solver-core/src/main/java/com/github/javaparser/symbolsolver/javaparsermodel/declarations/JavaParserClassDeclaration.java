@@ -24,6 +24,10 @@ package com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 import com.github.javaparser.ast.AccessSpecifier;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.*;
+import com.github.javaparser.ast.body.BodyDeclaration;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
@@ -128,6 +132,11 @@ public class JavaParserClassDeclaration extends AbstractClassDeclaration impleme
                                 @Override
                                 public boolean isStatic() {
                                     return f.isStatic();
+                                }
+
+                                @Override
+                                public boolean isVolatile() {
+                                    return f.isVolatile();
                                 }
 
                                 @Override
@@ -416,13 +425,7 @@ public class JavaParserClassDeclaration extends AbstractClassDeclaration impleme
 
     @Override
     public Set<ResolvedReferenceTypeDeclaration> internalTypes() {
-        Set<ResolvedReferenceTypeDeclaration> res = new HashSet<>();
-        for (BodyDeclaration<?> member : this.wrappedNode.getMembers()) {
-            if (member instanceof TypeDeclaration) {
-                res.add(JavaParserFacade.get(typeSolver).getTypeDeclaration((TypeDeclaration) member));
-            }
-        }
-        return res;
+        return javaParserTypeAdapter.internalTypes();
     }
 
     @Override

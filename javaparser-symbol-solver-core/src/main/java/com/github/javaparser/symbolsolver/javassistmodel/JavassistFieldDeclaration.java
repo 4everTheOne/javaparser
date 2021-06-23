@@ -67,6 +67,11 @@ public class JavassistFieldDeclaration implements ResolvedFieldDeclaration {
     }
 
     @Override
+    public boolean isVolatile() {
+        return Modifier.isVolatile(ctField.getModifiers());
+    }
+
+    @Override
     public String getName() {
         return ctField.getName();
     }
